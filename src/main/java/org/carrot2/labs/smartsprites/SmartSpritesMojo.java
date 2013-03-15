@@ -61,6 +61,10 @@ public class SmartSpritesMojo extends AbstractMojo {
      */
     private String cssFileSuffix;
     /**
+     * @parameter expression="${smartSprites.noCssFileSuffix}" default-value="false"
+     */
+    private String noCssFileSuffix;
+    /**
      * @parameter expression="${smartSprites.logLevel}" default-value="WARN"
      */
     private String logLevel;
@@ -84,9 +88,14 @@ public class SmartSpritesMojo extends AbstractMojo {
             args.add(cssFiles);
         }
 
-        if (cssFileSuffix != null) {
+        if("true".equals(noCssFileSuffix)) {
             args.add("--css-file-suffix");
-            args.add(cssFileSuffix);
+            args.add("");
+        } else {
+            if (cssFileSuffix != null) {
+                args.add("--css-file-suffix");
+                args.add(cssFileSuffix);
+            }            
         }
 
         if (cssFileEncoding != null) {
